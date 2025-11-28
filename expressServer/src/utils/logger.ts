@@ -4,7 +4,7 @@ import {createLogger, format, transports} from 'winston'
 const timestampFormat = () => dayjs().format('DD.MM.YY HH:mm:ss')
 
 const logger = createLogger({
-	level: process.env.NODE_ENV === 'production' ? 'error' : 'debug',
+	level: process.env.LOG_LEVEL || (process.env.NODE_ENV === 'production' ? 'info' : 'debug'),
 	format: format.combine(
 		format.errors({stack: true}),
 		format.printf(({level, message, stack}) => {

@@ -5,7 +5,6 @@ import {deviceState, mqttClient} from './mqttClient'
 import {errorHandler} from './utils/errorHandler'
 import {generateAccessToken, generateRefreshToken, verifyToken} from './utils/jwt'
 import logger from './utils/logger'
-import {IYandexDevice} from './utils/types'
 
 const app = express()
 const PORT = process.env.PORT || 3535
