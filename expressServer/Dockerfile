@@ -3,10 +3,12 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
+# Копируем package.json из expressServer/
+COPY expressServer/package.json expressServer/package-lock.json* ./
 RUN npm ci
 
-COPY . .
+# Копируем весь исходный код expressServer/
+COPY expressServer/. .
 
 RUN npm run build
 
@@ -17,7 +19,7 @@ FROM node:20-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY package.json package-lock.json* ./
+COPY expressServer/package.json expressServer/package-lock.json* ./
 RUN npm ci --omit=dev
 
 COPY --from=build /app/dist ./dist
