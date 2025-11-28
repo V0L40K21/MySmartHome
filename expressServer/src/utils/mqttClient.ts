@@ -1,6 +1,6 @@
 import mqtt from 'mqtt'
 
-import logger from './utils/logger'
+import logger from './logger'
 
 export const deviceState: Record<string, any> = {}
 const MQTT_URL = process.env.MQTT_URL ?? 'mqtt://localhost:1883'
@@ -19,7 +19,7 @@ mqttClient.on('connect', () => {
 mqttClient.on('message', (topic, message) => {
 	try {
 		const data = JSON.parse(message.toString())
-		const [action, deviceId] = topic.split('/')
+		const [, deviceId] = topic.split('/')
 		logger.debug(`MQTT state update for ${deviceId}: ${message.toString()}`)
 		deviceState[deviceId] = {
 			...deviceState[deviceId],

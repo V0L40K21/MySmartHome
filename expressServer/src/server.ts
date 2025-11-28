@@ -1,7 +1,7 @@
 import {json} from 'body-parser'
 import express, {Request, Response} from 'express'
 
-import {deviceState, mqttClient} from './mqttClient'
+import {deviceState, mqttClient} from './utils/mqttClient'
 import {errorHandler} from './utils/errorHandler'
 import {generateAccessToken, generateRefreshToken, verifyToken} from './utils/jwt'
 import logger from './utils/logger'
@@ -60,6 +60,7 @@ app.post('/v1.0/token', express.urlencoded({extended: true}), async (req: Reques
 				refresh_token: newRefresh
 			})
 		} catch (e) {
+			logger.error(e)
 			return res.status(400).json({
 				error: 'invalid_grant',
 				error_description: 'Invalid refresh token'
@@ -87,6 +88,7 @@ app.post('/v1.0/auth', (req: Request, res: Response) => {
 			user_id: decoded.user_id
 		})
 	} catch (e) {
+		logger.error(e)
 		return res.status(401).json({
 			error: 'INVALID_TOKEN',
 			error_message: 'Token verification failed'
