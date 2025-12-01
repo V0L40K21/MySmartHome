@@ -1,18 +1,24 @@
-const js = require('@eslint/js')
-const tsParser = require('@typescript-eslint/parser')
-const tsPlugin = require('@typescript-eslint/eslint-plugin')
-const prettierPlugin = require('eslint-plugin-prettier')
+import js from '@eslint/js'
+import tsParser from '@typescript-eslint/parser'
+import tsPlugin from '@typescript-eslint/eslint-plugin'
+import prettierPlugin from 'eslint-plugin-prettier'
 
-module.exports = [
-	js.configs.recommended,
-
+export default defineConfig([
+	...js.configs.recommended,
 	{
 		files: ['src/**/*.ts'],
+
 		languageOptions: {
 			parser: tsParser,
 			parserOptions: {
 				sourceType: 'module',
 				ecmaVersion: 'latest'
+			},
+			globals: {
+				require: 'readonly',
+				module: 'readonly',
+				__dirname: 'readonly',
+				process: 'readonly'
 			}
 		},
 		plugins: {
@@ -21,14 +27,10 @@ module.exports = [
 		},
 		rules: {
 			...tsPlugin.configs.recommended.rules,
-
-			// нужные правки:
-			'no-undef': 'off', // TS проверяет это лучше, чем ESLint
-
-			// Твоя конфигурация:
+			'no-undef': 'off',
 			'prettier/prettier': 'error',
 			'@typescript-eslint/no-unused-vars': 'warn',
 			'@typescript-eslint/no-explicit-any': 'off'
 		}
 	}
-]
+])
