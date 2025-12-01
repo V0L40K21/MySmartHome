@@ -1,10 +1,15 @@
-import js from '@eslint/js'
-import tsParser from '@typescript-eslint/parser'
-import tsPlugin from '@typescript-eslint/eslint-plugin'
-import prettierPlugin from 'eslint-plugin-prettier'
+const js = require('@eslint/js')
+const tsParser = require('@typescript-eslint/parser')
+const tsPlugin = require('@typescript-eslint/eslint-plugin')
+const prettierPlugin = require('eslint-plugin-prettier')
 
-export default defineConfig([
-	...js.configs.recommended,
+module.exports = [
+	{
+		ignores: ['eslint.config.cjs']
+	},
+
+	js.configs.recommended,
+
 	{
 		files: ['src/**/*.ts'],
 
@@ -21,10 +26,12 @@ export default defineConfig([
 				process: 'readonly'
 			}
 		},
+
 		plugins: {
 			'@typescript-eslint': tsPlugin,
 			prettier: prettierPlugin
 		},
+
 		rules: {
 			...tsPlugin.configs.recommended.rules,
 			'no-undef': 'off',
@@ -33,4 +40,4 @@ export default defineConfig([
 			'@typescript-eslint/no-explicit-any': 'off'
 		}
 	}
-])
+]
