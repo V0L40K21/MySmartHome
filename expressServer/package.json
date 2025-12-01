@@ -7,11 +7,8 @@
 		"dev": "ts-node-dev --respawn --transpile-only src/server.ts",
 		"build": "tsc",
 		"start": "node dist/server.js",
-		"prepare": "husky",
-		"lint:fix": "eslint --fix 'src/**/*.ts'",
-		"precommit-check": "npm run type-check && eslint src --ext .ts && prettier --check .",
 		"type-check": "tsc --noEmit",
-		"lint": "eslint src --ext .ts",
+		"lint": "eslint 'src/**/*.ts'",
 		"format": "prettier --write ."
 	},
 	"lint-staged": {
