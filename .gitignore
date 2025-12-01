@@ -1,2 +1,6 @@
 
 expressServer/node_modules
+
+expressServer/dist/
+
+.DS_Store
