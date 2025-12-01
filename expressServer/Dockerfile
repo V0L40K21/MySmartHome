@@ -9,7 +9,6 @@ RUN npm ci
 
 # Копируем весь исходный код expressServer/
 COPY expressServer/. .
-
 RUN npm run build
 
 # ---------- STAGE 2: Runtime ----------
